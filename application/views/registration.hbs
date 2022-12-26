@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<title>The Blank Space - Registration</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../public/css/style.css">
+      <script type="text/javascript" src="../public/js/script.js"></script>
+</head>
+	
+<body>
+    <header>
+	<h2>The Blank Space</h2>
+	<h3>We keep the space; You color it</h3>
+    </header>
+    <div id="navi">
+    <nav id="nav_menu">
+    	<ul>
+            <li><a class="current" href="index.html">Home</a></li>
+            {{#if isLoggedIn}}
+            <li><a href="#">Profile</a></li>
+            <li><a id="logout">Log Out</a></li>
+            {{else}}
+            <li><a  href="login.html">Log In</a></li>
+            <li><a  href="registration.html">Registration</a></li>
+            {{/if}}
+            <li><a  href="postimage.html">Post an Image</a></li>
+            <li class="adjust2"><form class="search-bar" action="/posts/search"
+            enctype="application/x-www-form-urlencoded">
+            <input id="searchTerm" class="searchTerm" name="searchTerm" type="text" value="{{searchValue}}"/>
+            <button class="button" id="button2"type="sumbit">Search</button></form></li>
+      </ul>
+    </nav>
+    </div id="navi">
+    <main>
+    <section>
+    <form name="myForm" onsubmit="return validate()" method="post" action="/users/registration.html"
+      enctype="application/x-www-form-urlencoded">
+	<h3>Registration Form</h3>
+                 <div>
+            <label>Username : </label>
+            <input type="text" placeholder="Enter Username" name="username" id="username">
+		<p id="umsg" ></p>
+                 </div>
+                 <div>
+            <label>Email : </label>
+            <input type="email" placeholder="Enter Email" name="email">
+                     <p id="ema"></p>
+                 </div>
+                 <div>
+            <label>Password : </label>
+            <input type="password" placeholder="Enter Password" name="password" id="password1">
+		<p id="p1" ></p>
+                 </div>
+                 <div>
+            <label>Confirm Password : </label>
+            <input type="password" placeholder="Confirm Password" name="confirmpassword" id="password2">
+		<p id="p2" ></p>
+                 </div>
+                 <div>
+            <input type="checkbox" required> I am over 13 years old
+                 </div>
+                 <div>
+            <input type="checkbox" required> I have read and accept the <a href="#">TOS and Privacy Rules</a></input>
+                 </div>
+            <input type="submit" class="button" value="Register">
+		<p id="conf"></p>
+    </form>
+    </section>
+    </main>
+    <footer>
+           <p>----------------------</p>
+           <p>Created by NRF</p>
+           <p>----------------------</p>
+    </footer>
+</body>
+</html>

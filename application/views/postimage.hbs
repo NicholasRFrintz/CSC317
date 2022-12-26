@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<title>The Blank Space - Post an Image</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../public/css/style.css">
+</head>
+	
+<body>
+    <header>
+      {{#if isLoggedIn}}
+        <h2 id="usnplace">Hello, {{username}}</h2>
+      {{/if}}
+	<h2>The Blank Space</h2>
+	<h3>We keep the space; You color it</h3>
+    </header>
+    <div id="navi">
+    <nav id="nav_menu">
+    	<ul>
+            <li><a class="current" href="index.html">Home</a></li>
+            {{#if isLoggedIn}}
+            <li><a href="#">Profile</a></li>
+            <li><a id="logout">Log Out</a></li>
+            {{else}}
+            <li><a  href="login.html">Log In</a></li>
+            <li><a  href="registration.html">Registration</a></li>
+            {{/if}}
+            <li><a  href="postimage.html">Post an Image</a></li>
+            <li class="adjust2"><form class="search-bar" action="/posts/search"
+            enctype="application/x-www-form-urlencoded">
+            <input id="searchTerm" class="searchTerm" name="searchTerm" type="text" value="{{searchValue}}"/>
+            <button class="button" id="button2"type="sumbit">Search</button></form></li>
+      </ul>
+    </nav>
+    </div id="navi">
+    <main>
+    {{#if isLoggedIn}}
+    <section>
+    <form method="post" action="/posts/create" enctype="multipart/form-data">
+	<h3>Post Space</h3>
+        <div>
+        <label for="posttitle">Post Title: </label>
+        <input type="text" placeholder="Enter a title" name="title" required>
+        </div>
+        <div>
+        <label for="description">Post Description: </label>
+        <input type="text" placeholder="Enter a description" name="description" required>
+        </div>
+        <div>
+        <label for="image">Post Image: </label>
+        <input id="adjust3" type="file" placeholder="Select a File" name="image" required multiple>
+        </div>
+        <div>
+            <input type="checkbox" required> I have read the <a href="#">Acceptable Use Policy</a></input>
+        </div>
+        <div>
+            <button type="submit" class="button">Submit</button>
+        </div>   
+    </form>
+    </section>
+    {{else}}
+    <h2 class="message1">Even Blankness requires an Authority:</h2>
+    <h3 class="message2"><a  href="login.html">Log In</a></h3>
+    <h3 class="message2">or</h3>
+    <h3 class="message2"><a  href="registration.html">Register</a></h3>
+    {{/if}}
+    </main>
+    <footer>
+           <p>----------------------</p>
+           <p>Created by NRF</p>
+           <p>----------------------</p>
+    </footer>
+    {{#if isLoggedIn}}
+    <script>
+      document.getElementById("logout")
+        .addEventListener('click', function(ev){
+          fetch('/users/logout',{method:"POST"})
+            .then(response => response.json())
+            .then(function(res_json){
+              console.log(res_json);
+              window.location.replace('/');
+            })
+            .catch(err => console.log(err));
+        })
+    </script>
+    {{/if}}
+</body>
+</html>

@@ -1,0 +1,76 @@
+{{log this}}
+<!doctype html>
+
+<html lang="en">
+<head>
+	<title>The Blank Space - Home</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../public/css/style.css">
+      <script defer type="text/javascript" src="../public/js/script.js"></script>
+</head>
+<body>
+    <header>
+      {{#if isLoggedIn}}
+        <h2 id="usnplace">Hello, {{username}}</h2>
+      {{/if}}
+	<h2>The Blank Space</h2>
+	<h3>We keep the space; You color it</h3>
+    </header>
+    <div id="navi">
+    <nav id="nav_menu">
+    	<ul>
+            <li><a class="current" href="../index.html">Home</a></li>
+            {{#if isLoggedIn}}
+            <li><a href="#">Profile</a></li>
+            <li><a id="logout">Log Out</a></li>
+            {{else}}
+            <li><a  href="../login.html">Log In</a></li>
+            <li><a  href="../registration.html">Registration</a></li>
+            {{/if}}
+            <li><a  href="../postimage.html">Post an Image</a></li>
+            <li class="adjust2"><form class="search-bar" action="/posts/search"
+            enctype="application/x-www-form-urlencoded">
+            <input id="searchTerm" class="searchTerm" name="searchTerm" type="text" value="{{searchValue}}"/>
+            <button class="button" id="button2"type="sumbit">Search</button></form></li>
+      </ul>
+    </nav>
+    </div id="navi">
+       <section>
+    <main>
+	  <p id="remnant"></p>
+        <div id="product-list" class="product-list">
+        {{#each results}}
+          <div class="temp" id="{{this.id}}">
+            <img class="prod-info" src="/{{this.thumbnail}}" alt="" />
+            <div>
+              <p class="prod-title">{{this.title}}</p>
+              <p class="prod-title">{{this.description}}</p>
+              <a href="/posts/{{this.id}}" id="button">View</a>
+            </div>
+          </div>
+        {{/each}}
+        </div>
+	  <h3 id="counter">{{response}}</h3>
+    </main>
+       </section>
+    <footer>
+           <p>----------------------</p>
+           <p>Created by NRF</p>
+           <p>----------------------</p>
+    </footer>
+    {{#if isLoggedIn}}
+    <script>
+      document.getElementById("logout")
+        .addEventListener('click', function(ev){
+          fetch('/users/logout',{method:"POST"})
+            .then(response => response.json())
+            .then(function(res_json){
+              console.log(res_json);
+              window.location.replace('/');
+            })
+            .catch(err => console.log(err));
+        })
+    </script>
+    {{/if}}
+</body>
+</html>
